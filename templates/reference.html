@@ -1,0 +1,41 @@
+<div class="reference-card-name message-title typed-header {{type}}">{{name}}</div>
+<div class="reference-card-content">
+  {{#if frequency}}
+  <div class="reference-card-key">Frequency</div>
+  <div class="reference-card-value">{{frequency}}</div>
+  {{/if}}
+
+  {{#if cost}}
+  <div class="reference-card-key">Cost</div>
+  <div class="reference-card-value">{{cost}} Tutor Points</div>
+  {{/if}}
+
+  {{#if ac}}
+  <div class="reference-card-key">Accuracy</div>
+  <div class="reference-card-value">{{ac}}</div>
+  {{/if}}
+
+  {{#if range}}
+  <div class="reference-card-key">Range</div>
+  <div class="reference-card-value">{{range}}</div>
+  {{/if}}
+
+  {{#if damageType}}
+  <div class="reference-card-key">Attack Type</div>
+  <div class="reference-card-value">{{capitalize damageType}}</div>
+  {{/if}}
+
+  {{#if damageBase}}
+  <div class="reference-card-key">Damage Base</div>
+  <div class="reference-card-value">{{damageBase}}</div>
+  {{/if}}
+
+  {{#if damageType}}
+  <div class="reference-card-key">Move Type</div>
+  <div class="reference-card-value">{{capitalize type}}</div>
+  {{/if}}
+
+  {{#if effect}}
+  <div class="reference-card-effect">{{effect}}</div>
+  {{/if}}
+</div>

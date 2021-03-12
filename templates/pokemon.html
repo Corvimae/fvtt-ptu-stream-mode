@@ -1,0 +1,24 @@
+<div class="pokemon-summary">
+  <div class="pokemon-summary-icon-container">
+    <div class="pokemon-summary-icon" style="background-image: url({{icon}})"></div>
+  </div>
+  <div class="pokemon-summary-description">
+    <div class="pokemon-summary-name">
+      {{name}}
+      <div class="pokemon-summary-gender" style="background-color: {{genderIconColor}}">
+        <i class="fa {{genderIcon}} fa-small"></i>
+      </div>
+    </div>
+    <div class="pokemon-summary-health-bar">
+      <div class="pokemon-summary-health-bar-fill" style="width: {{healthPercentage}}%"></div>
+    </div>
+    <div class="pokemon-summary-stats">
+      <div>
+        {{currentHealth}}/{{totalHealth}}
+      </div>
+      <div>
+        Lv.&nbsp;{{level}}
+      </div>
+    </div>
+  </div>
+</div>

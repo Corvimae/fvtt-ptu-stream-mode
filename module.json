@@ -1,0 +1,25 @@
+{
+    "name": "stream-mode",
+    "title": "Stream Overlay Toggle",
+    "description": "Modify layout for streaming.",
+    "author": "Corvimae",
+    "version": "1.0.0",
+    "minimumCoreVersion": "0.7.9",
+    "compatibleCoreVersion": "0.7.9",
+    "url": "https://github.com/corvimae/fvtt-stream-mode",
+    "manifest": "https://raw.githubusercontent.com/corvimae/fvtt-stream-mode/master/module.json",
+    "download": "https://github.com/Corvimae/fvtt-stream-mode/archive/1.0.0.zip",
+    "styles": [
+      "styles/stream.css"
+    ],
+    "esmodules": [
+      "modules/stream-mode.js"
+    ],
+    "dependencies": [
+      {
+        "name": "_chatcommands",
+        "type": "module",
+        "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json"
+      }
+    ]
+  }
