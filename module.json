@@ -1,14 +1,14 @@
 {
     "name": "stream-mode",
     "title": "Stream Overlay Toggle",
-    "description": "Modify layout for streaming.",
+    "description": "Modify layout for streaming PTU.",
     "author": "Corvimae",
     "version": "1.0.0",
     "minimumCoreVersion": "0.7.9",
     "compatibleCoreVersion": "0.7.9",
-    "url": "https://github.com/corvimae/fvtt-stream-mode",
-    "manifest": "https://raw.githubusercontent.com/corvimae/fvtt-stream-mode/master/module.json",
-    "download": "https://github.com/Corvimae/fvtt-stream-mode/archive/1.0.0.zip",
+    "url": "https://github.com/corvimae/fvtt-ptu-stream-mode",
+    "manifest": "https://raw.githubusercontent.com/corvimae/fvtt-ptu-stream-mode/master/module.json",
+    "download": "https://github.com/Corvimae/fvtt-ptu-stream-mode/archive/1.0.0.zip",
     "styles": [
       "styles/stream.css"
     ],
