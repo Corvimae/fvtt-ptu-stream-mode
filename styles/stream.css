@@ -86,7 +86,6 @@ body:not(.show-stream-mode-cards) .stream-card {
   background-color: inherit;
   filter: brightness(80%);
   transform: rotate(180deg);
-
 }
 
 .stream-mode .chat-message .message-header .message-sender {
@@ -612,4 +611,64 @@ body:not(.show-stream-mode-cards) .stream-card {
   top: 0;
   height: 100%;
   background-color: #13a8b0;
+}
+
+.stream-mode .battle-effects {
+  box-shadow: none;
+  background: none;
+  min-width: 18rem;
+  width: max-content;
+  padding-top: 1.5rem;
+  transition: left 200ms ease-in-out;
+  left: 1rem !important; /* :( */
+  top: 1rem !important;
+}
+
+.stream-mode .battle-effects.no-effects {
+  left: -500px !important; /* :( */
+}
+
+.stream-mode .battle-effects header {
+  display: none;
+}
+
+.stream-mode .battle-effects .window-content  {
+  background: none;
+}
+
+.stream-mode .battle-effects-title {
+  position: absolute;
+  left: -1rem;
+  top: 0;
+  width: calc(100% + 1.5rem);
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  text-align: right;
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #327529;
+}
+
+.stream-mode .battle-effects-title:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2rem;
+  height: 100%;
+  clip-path: polygon(2rem 0%, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
+  background-color: inherit;
+  filter: brightness(80%);
+}
+
+.stream-mode .battle-effects-title:after {
+  content: '';
+  position: absolute;
+  right: -2rem;
+  top: 0;
+  width: 2rem;
+  height: 100%;
+  clip-path: polygon(2rem 0%, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
+  background-color: inherit;
+  filter: brightness(80%);
+  transform: rotate(180deg);
 }
