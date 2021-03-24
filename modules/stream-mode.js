@@ -91,6 +91,22 @@ Hooks.once('init', async () => {
       }
     },
   });
+ 
+ game.settings.register('streamMode', 'hideMacros', {
+    name: 'Hide Macros in Stream Mode',
+    hint: 'Hide the Macro bar when in Stream Mode.',
+    scope: 'client',
+    config: true,
+    type: Boolean,
+    default: false,
+    onChange(enabled) {
+      if (enabled) {
+        document.body.classList.add('hide-macros');
+      } else {
+        document.body.classList.remove('hide-macros');
+      }
+    },
+  });
 });
 
 Hooks.once('ready', function() {
@@ -99,6 +115,12 @@ Hooks.once('ready', function() {
   } else {
     document.body.classList.remove('stream-mode');
   }
+
+  if (game.settings.get('streamMode', 'hideMacros')) {
+    document.body.classList.add('hide-macros');
+  } else {
+    document.body.classList.remove('hide-macros');
+  }
   
   if (game.settings.get('streamMode', 'displayCards')) {
     document.body.classList.add('show-stream-mode-cards');
@@ -106,6 +128,7 @@ Hooks.once('ready', function() {
     document.body.classList.remove('show-stream-mode-cards');
   }
 });
+
 
 Hooks.on('renderChatMessage', (_app, html, options) => {
   if(options.message.flags.streamMode?.classNames) {

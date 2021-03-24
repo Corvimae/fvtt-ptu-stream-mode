@@ -1,7 +1,10 @@
 .stream-mode #logo,
 .stream-mode #navigation,
 .stream-mode #players {
-/* .stream-mode #hotbar { */
+  display: none;
+}
+
+.stream-mode.hide-macros #hotbar {
   display: none;
 }
 
