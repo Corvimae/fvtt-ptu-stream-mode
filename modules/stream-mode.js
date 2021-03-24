@@ -1,4 +1,5 @@
-import { calculateLevel, calculateMaxHP, normalizePokemonName } from "./utils/calculate.js";
+import { calculateLevel, calculateMaxHP, calculatePercentageToNextLevel, normalizePokemonName } from "./utils/calculate.js";
+import { TYPE_COLORS, TYPE_ICONS } from "./utils/types.js";
 
 function displayHiddenCardAlert(message) {
   if (!game.settings.get('streamMode', 'displayCards')) {
@@ -52,6 +53,7 @@ Hooks.once('init', async () => {
     'modules/stream-mode/templates/bio.html',
     'modules/stream-mode/templates/reference.html',
     'modules/stream-mode/templates/pokemon.html',
+    'modules/stream-mode/templates/status.html',
   ]);
 
   Handlebars.registerHelper('capitalize', str => {
@@ -280,5 +282,104 @@ Hooks.on('chatCommandsReady', chatCommands => {
     },
     shouldDisplayToChat: false,
     description: 'Display a Pokemon reference card.',
+  }));
+
+  chatCommands.registerCommand(chatCommands.createCommandFromData({
+    commandKey: '/status',
+    invokeOnCommand: async (_chatLog, messageText, _chatdata) => {
+      const referenceResponse = await fetch(`https://pokemon.maybreak.com/api/v1/pokemon/${messageText}`);
+  
+      const response = await referenceResponse.json();
+      
+      if (response.error) {
+        ui.notifications.warn(response.error);
+    
+        return;
+      }
+
+      displayHiddenCardAlert(`Displaying combat status card for Pokemon: ${response.pokemon.name} (ID: ${response.pokemon.id})`);
+
+      let genderIcon = 'fa-minus';
+      let genderIconColor = '#999';
+
+      if (response.pokemon.gender === 'male') {
+        genderIcon = 'fa-mars'
+        genderIconColor = '#00f';
+      }
+
+      if (response.pokemon.gender === 'female') {
+        genderIcon = 'fa-venus'
+        genderIconColor = '#f00';
+      }
+    
+      const currentHealth = response.pokemon.currentHealth;
+      const totalHealth = calculateMaxHP(response.pokemon);
+      const level = calculateLevel(response.pokemon);
+      const experienceToNextLevel = calculatePercentageToNextLevel(response.pokemon.experience);
+
+      const combatStageData = [
+        ['attack', 'Attack'],
+        ['defense', 'Defense'],
+        ['spAttack', 'Sp. Attack'],
+        ['spDefense', 'Sp. Defense'],
+        ['speed', 'Speed'],
+      ].reduce((acc, [stat, label]) => {
+        const stages = response.pokemon[`${stat}CombatStages`];
+
+        return [
+          ...acc,
+          {
+            stat,
+            label,
+            isNegative: stages < 0,
+            isPositive: stages > 0,
+            stages: [...Array(Math.abs(stages))].map(x => 0),
+            remainingPips: [...Array(6 - Math.abs(stages))].map(x => 0),
+          } 
+        ]
+      }, []);
+
+      console.log(combatStageData);
+
+      const content = await renderTemplate('/modules/stream-mode/templates/status.html', {
+        ...response.pokemon,
+        genderIcon,
+        genderIconColor,
+        currentHealth,
+        totalHealth,
+        type1Name: response.pokemon.type1[0].toUpperCase() + response.pokemon.type1.slice(1),
+        type2Name: response.pokemon.type2[0].toUpperCase() + response.pokemon.type2.slice(1),
+        type1Color: TYPE_COLORS[response.pokemon.type1.toLowerCase()],
+        type2Color: TYPE_COLORS[response.pokemon.type2.toLowerCase()],
+        type1Icon: TYPE_ICONS[response.pokemon.type1.toLowerCase()],
+        type2Icon: TYPE_ICONS[response.pokemon.type2.toLowerCase()],
+        hasType2: response.pokemon.type2 !== 'none',
+        level,
+        abilityNames: response.pokemon.abilities.map(ability => ability.name).join(', ') || 'None',
+        heldItemNames: response.pokemon.heldItems.map(heldItem => heldItem.name).join(', ') || 'None',
+        experienceToNextLevel,
+        healthPercentage: currentHealth * 100 / totalHealth,
+        combatStageData,
+        icon: `modules/pokemon-manager-data/assets/sprites/${normalizePokemonName(response.pokemon.species.name, response.pokemon.species.dexNumber)}.png`,
+        moves: response.pokemon.moves.map(move => {
+          return {
+            ...move,
+            typeColor: TYPE_COLORS[move.type.toLowerCase()],
+            typeIcon: TYPE_ICONS[move.type.toLowerCase()],
+          };
+        })
+      });
+    
+      await ChatMessage.create({
+        content,
+        flags: {
+          'streamMode.classNames': ['stream-card', 'status-card', 'hide-header', 'no-background'],
+        },
+        speaker: ChatMessage.getSpeaker(),
+        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+      });
+    },
+    shouldDisplayToChat: false,
+    description: 'Display a Pokemon status card.',
   }));
 });

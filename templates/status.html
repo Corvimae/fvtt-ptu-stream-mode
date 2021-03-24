@@ -1,0 +1,112 @@
+<div class="pokemon-status">
+  <div class="pokemon-status-header">
+    <div class="pokemon-status-icon-container">
+      <div class="pokemon-summary-icon-container">
+        <div class="pokemon-summary-icon" style="background-image: url({{icon}})"></div>
+      </div>
+      <div class="pokemon-summary-level-row">
+        Lv.&nbsp;<span class="pokemon-status-level">{{level}}</span>
+        <div class="pokemon-summary-gender" style="background-color: {{genderIconColor}}">
+          <i class="fa {{genderIcon}} fa-small"></i>
+        </div>
+      </div>
+    </div>
+    <div class="pokemon-status-header-details">
+      <div class="pokemon-status-name">{{name}}</div>
+      <div class="pokemon-status-type-list">
+        <div class="type-indicator">
+          <div class="type-name">{{type1Name}}</div>
+          <div class="type-indicator-threshold" style="background-color: {{type1Color}}">
+            <i class="fa {{type1Icon}}"></i>
+          </div>
+        </div>
+
+        {{#if hasType2}}
+        <div class="type-indicator">
+          <div class="type-name">{{type2Name}}</div>
+          <div class="type-indicator-threshold" style="background-color: {{type2Color}}">
+            <i class="fa {{type2Icon}}"></i>
+          </div>
+        </div>
+        {{/if}}
+      </div>
+      <div class="pokemon-status-health-xp">
+        <div class="pokemon-status-bars">
+          <div class="pokemon-summary-health-bar health-bar">
+            <div class="pokemon-summary-health-bar-fill" style="width: {{healthPercentage}}%"></div>
+          </div>
+          <div class="pokemon-summary-health-bar experience-bar">
+            <div class="pokemon-summary-health-bar-fill" style="width: {{experienceToNextLevel}}%"></div>
+          </div>
+        </div>
+        <div class="pokemon-status-current-health">
+          {{currentHealth}}/{{totalHealth}}
+        </div>
+      </div>
+    </div>
+    <div class="pokemon-status-ability-held-item">
+      <div class="pokemon-status-ability">
+        <div class="pokemon-status-ability-label">
+          Abilities
+        </div>
+        {{abilityNames}}
+      </div>
+      <div class="pokemon-status-ability">
+        <div class="pokemon-status-ability-label">
+          Held Items
+        </div>
+        {{heldItemNames}}
+      </div>
+    </div>
+  </div>
+
+  <div class="pokemon-status-details">
+    <div>
+      <div class="pokemon-status-combat-stages">
+        {{#each combatStageData as |stageData|}}
+        <div class="combat-stage-header">
+          {{stageData.label}}
+        </div>
+        {{#each stages as |stage|}}
+        <div class="{{#if ../isPositive}}positive-stage{{/if}}{{#if ../isNegative}}negative-stage{{/if}}">
+        </div>
+        {{/each}}
+        {{#each remainingPips as |stage|}}
+        <div class="neutral-pip">
+        </div>
+        {{/each}}
+        {{/each}}
+      </div>
+
+      <div class="pokemon-status-trainer-name">
+        <span>{{trainer.name}}</span>
+      </div>
+    </div>
+
+    <div class="pokemon-status-move-container">
+      <div class="pokemon-status-move-list">
+        {{#each moves as |move|}}
+        <div class="pokemon-status-move">
+          <div class="pokemon-status-move-name">{{move.name}}</div>
+          <div>AC {{move.ac}}</div>
+          <div>{{move.damageBase}}</div>
+          <div>{{capitalize move.damageType}}</div>
+          <div>
+            <div class="type-indicator">
+              <div class="type-name">{{capitalize move.type}}</div>
+              <div class="type-indicator-threshold" style="background-color: {{move.typeColor}}">
+                <i class="fa {{move.typeIcon}}"></i>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="move-frequency-container">
+              {{move.frequency}}
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

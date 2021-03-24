@@ -21,7 +21,6 @@ export function calculateMaxHP(pokemon) {
   return calculateLevel(pokemon.experience) + (pokemon.baseHP + pokemon.addedHP + pokemon.vitaminHP) * 3 + 10 + pokemon.bonusHP;
 }
 
-
 export function normalizePokemonName(name, id) {
   switch (id) {
     case 29: // Nidoran F
@@ -31,4 +30,22 @@ export function normalizePokemonName(name, id) {
     default:
       return name.toLowerCase().replace(/[.':\- ]/g, '');
   }
+}
+
+
+export function calculateExperienceToNextLevel(experience) {
+  const level = calculateLevel(experience);
+
+  return level === 100 ? '-' : LEVEL_THRESHOLDS[level] - experience;
+}
+
+export function calculatePercentageToNextLevel(experience) {
+  const level = calculateLevel(experience);
+  const toNext = calculateExperienceToNextLevel(experience);
+
+  if(toNext === '-') return 100;
+
+  const experienceBetweenLevels = LEVEL_THRESHOLDS[level] - LEVEL_THRESHOLDS[level - 1];
+
+  return ((experienceBetweenLevels - toNext) / experienceBetweenLevels) * 100;
 }

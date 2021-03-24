@@ -73,7 +73,7 @@ body:not(.show-stream-mode-cards) .stream-card {
   position: absolute;
   left: -2rem;
   width: 2rem;
-  height: 100%;
+  height: calc(100% + 1px);
   clip-path: polygon(2rem 0%, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
   background-color: inherit;
   filter: brightness(80%);
@@ -134,8 +134,8 @@ body:not(.show-stream-mode-cards) .stream-card {
 
 @keyframes chat-message {
   0% {
-    right: -750px;
-    /* right: 0; */
+    /* right: -750px; */
+    right: 0;
   }
 
   5%,
@@ -144,8 +144,8 @@ body:not(.show-stream-mode-cards) .stream-card {
   }
 
   100% {
-    /* right: 0; */
-    right: -750px;
+    right: 0;
+    /* right: -750px; */
   }
 }
 
@@ -197,7 +197,7 @@ body:not(.show-stream-mode-cards) .stream-card {
   position: absolute;
   left: -2rem;
   width: 2rem;
-  height: 100%;
+  height: calc(100% + 1px);
   clip-path: polygon(2rem 0%, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
   background-color: inherit;
   filter: brightness(80%);
@@ -243,7 +243,7 @@ body:not(.show-stream-mode-cards) .stream-card {
   position: absolute;
   left: -2rem;
   width: 2rem;
-  height: 100%;
+  height: calc(100% + 1px);
   clip-path: polygon(2rem 0%, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
   background-color: inherit;
   filter: brightness(80%);
@@ -674,4 +674,353 @@ body:not(.show-stream-mode-cards) .stream-card {
   background-color: inherit;
   filter: brightness(80%);
   transform: rotate(180deg);
+}
+
+.stream-mode .pokemon-status {
+  width: 62rem;
+  margin-left: -36.75rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1rem 0px;
+}
+
+.stream-mode .pokemon-status-header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1rem 0px;
+}
+
+.stream-mode .pokemon-status-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #666;
+  padding-right: 1rem;
+  margin-right: 1rem;
+  border-right: 2px solid #aaa;
+}
+
+.stream-mode .pokemon-status-icon-container .pokemon-summary-icon {
+  margin: 0;
+  transform: none;
+  width: 80px;
+  height: 60px;
+}
+
+.stream-mode .pokemon-summary-level-row {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.stream-mode .pokemon-summary-level-row .pokemon-summary-gender {
+  position: relative;
+  top: -2px;
+  margin-left: 0.5rem;
+}
+
+.stream-mode .pokemon-status-level {
+  font-size: 1.25rem;
+}
+
+.stream-mode .pokemon-status-header-details {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+}
+
+.stream-mode .pokemon-status-name {
+  font-size: 1.25rem;
+  color: #333;
+}
+
+
+.stream-mode .pokemon-status-type-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.25rem 0;
+}
+
+.stream-mode .pokemon-status-type-list .type-indicator + .type-indicator {
+  margin-left: 0.5rem;
+}
+
+.stream-mode .pokemon-status-health-xp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stream-mode .pokemon-status-bars {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.stream-mode .pokemon-status-bars .health-bar {
+  height: 0.425rem;
+}
+
+.stream-mode .pokemon-status-bars .health-bar .pokemon-summary-health-bar-fill {
+  background-color: #3bd031;
+}
+
+.stream-mode .pokemon-status-current-health {
+  font-size: 1.25rem;
+  margin-left: 0.5rem;
+  color: #666;
+}
+
+.stream-mode .pokemon-status-ability-held-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: auto;
+}
+
+.stream-mode .pokemon-status-ability {
+  position: relative;
+  display: flex;
+  width: 30rem;
+  height: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1rem 0px;
+  background-color: #fff;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+.stream-mode .pokemon-status-ability-label {
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 8rem;
+  height: 100%;
+  background-color: #ddd;
+  align-items: center;
+  padding: 0 1rem;
+  border-radius: 1rem 0 0 1rem;
+  clip-path: polygon(0 -5px, calc(100% + 1px) -5px, 70% calc(100% + 1px), 0% calc(100% + 1px));
+}
+
+
+.stream-mode .pokemon-status-ability + .pokemon-status-ability {
+  margin-top: 0.5rem;
+}
+
+.stream-mode .pokemon-status-details {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #eee;
+}
+
+.stream-mode .pokemon-status-combat-stages {
+  display: grid;
+  padding: 0.5rem 1rem;
+  grid-template-columns: 1fr repeat(6, 2rem);
+}
+
+.stream-mode .pokemon-status-combat-stages > div {
+  display: flex;
+  height: 2rem;
+  max-height: 2rem;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.stream-mode .pokemon-status-combat-stages .combat-stage-header {
+  justify-content: flex-end;
+  font-weight: 700;
+  color: #333;
+  width: 6rem;
+}
+
+.stream-mode .pokemon-status-combat-stages .neutral-pip:after {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #666;
+  border-radius: 50%;
+}
+
+.stream-mode .pokemon-status-combat-stages .positive-stage:after,
+.stream-mode .pokemon-status-combat-stages .negative-stage:after {
+  content: '';
+  border-left: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+  border-top: 0.875rem solid #5151ff;
+}
+
+.stream-mode .pokemon-status-combat-stages .positive-stage:after {
+  border-top: none;
+  border-bottom: 0.875rem solid #fb6161;
+}
+
+.stream-mode .pokemon-status-move-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #d61313;
+  margin-left: 2rem;
+}
+
+.stream-mode .pokemon-status-move-container:before {
+  content: '';
+  position: absolute;
+  left: -4rem;
+  width: 4rem;
+  height: calc(100% + 1px);
+  clip-path: polygon(4rem 0%, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
+  background-color: inherit;
+  filter: brightness(80%);
+}
+
+.stream-mode .pokemon-status-move-container:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 4rem;
+  height: 100%;
+  clip-path: polygon(4rem 0%, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
+  background-color: inherit;
+  filter: brightness(80%);
+  transform: rotate(180deg);
+}
+
+.stream-mode .pokemon-status-move-list {
+  position: relative;
+  padding: 0.5rem 1rem;
+  z-index: 1;
+}
+
+.stream-mode .pokemon-status-move {
+  display: grid;
+  grid-template-columns: 10rem 4rem 3rem 5rem 9rem 6.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 1rem 0px;
+  margin-bottom: 0.5rem;
+  align-self: stretch;
+  border-radius: 1.25rem;
+}
+
+.stream-mode .pokemon-status-move > div {
+  display: flex;
+  height: 2.5rem;
+  padding: 0 1rem;
+  flex-direction: row;
+  background-color: #fff;
+  align-items: center;
+}
+
+.stream-mode .pokemon-status-move > div:first-child {
+  border-radius: 1.25rem 0 0 1.25rem;
+}
+
+.stream-mode .pokemon-status-move > div:last-child {
+  border-radius: 0 1.25rem 1.25rem 0;
+  padding: 0;
+}
+
+.stream-mode .pokemon-status-move > div:last-child .move-frequency-container {
+  display: flex;
+  top: 0px;
+  right: 0px;
+  width: calc(100% + 1px);
+  min-width: 6rem;
+  padding: 0px 0.5rem 0px 1rem;
+  border-radius: 0px 1.25rem 1.25rem 0px;
+  height: 100%;
+  background-color: rgb(102, 102, 102);
+  color: rgb(255, 255, 255);
+  font-family: inherit;
+  font-size: inherit;
+  flex-direction: row;
+  -moz-box-align: center;
+  align-items: center;
+  -moz-box-pack: center;
+  justify-content: center;
+  z-index: 1;
+  clip-path: polygon(20% 0px, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
+}
+
+.stream-mode .pokemon-status-trainer-name {
+  position: relative;
+  width: max-content;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  top: 0;
+  padding: 0.25rem 1rem 0.25rem 1.5rem;
+  text-align: right;
+  color: #fff;
+  background-color: #000;
+}
+
+.stream-mode .pokemon-status-trainer-name > span {
+  position: relative;
+  z-index: 1;
+}
+
+.stream-mode .pokemon-status-trainer-name:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1rem;
+  height: 100%;
+  clip-path: polygon(1rem 0%, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
+  background-color: inherit;
+}
+
+.stream-mode .pokemon-status-trainer-name:after {
+  content: '';
+  position: absolute;
+  right: -1rem;
+  top: 0;
+  width: 1rem;
+  height: 100%;
+  clip-path: polygon(1rem 0%, calc(100% + 1px) 0%, calc(100% + 1px) 100%, 0% 100%);
+  background-color: inherit;
+  transform: rotate(180deg);
+}
+
+.type-indicator {
+  position: relative;
+  display: flex;
+  height: 1.75rem;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  line-height: 1;
+  color: #fff;
+  background-color: #333;
+  border-radius: 0.125rem;
+  padding: 0.125rem 0.125rem 0.125rem 2.25rem;
+  overflow: hidden;
+}
+
+.type-indicator .type-name {
+  width: 5rem;
+  padding: 0 0.5rem;
+  text-align: center;
+}
+
+.type-indicator .type-indicator-threshold {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: -1px;
+  width: 2.25rem;
+  padding-right: 0.5rem;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(0 -5px, calc(100% + 1px) -5px, 70% calc(100% + 1px), 0% calc(100% + 1px));
 }
