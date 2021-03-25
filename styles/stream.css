@@ -5,7 +5,7 @@
 }
 
 .stream-mode.hide-macros #hotbar,
-.stream-mode .hide-macros #custom-hotbar {
+.stream-mode.hide-macros #custom-hotbar {
   display: none;
 }
 
