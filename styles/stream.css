@@ -134,18 +134,18 @@ body:not(.show-stream-mode-cards) .stream-card {
 
 @keyframes chat-message {
   0% {
-    /* right: -750px; */
-    right: 0;
+    right: -1500px;
+    /* right: 0; */
   }
 
-  5%,
-  95% {
+  10%,
+  90% {
     right: 0;
   }
 
   100% {
-    right: 0;
-    /* right: -750px; */
+    /* right: 0; */
+    right: -1500px;
   }
 }
 
@@ -727,6 +727,7 @@ body:not(.show-stream-mode-cards) .stream-card {
 
 .stream-mode .pokemon-status-header-details {
   display: flex;
+  min-width: 20rem;
   flex-direction: column;
   align-items: space-between;
 }

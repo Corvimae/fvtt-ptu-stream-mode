@@ -24,16 +24,20 @@ async function displayReferenceCard(type, messageText, formatData = x => x, temp
     return;
   }
 
-  if (response.length > 1) {
+  const exactMatch = response.find(x => x.name === messageText);
+
+  if (response.length > 1 && !exactMatch) {
     ui.notifications.warn(`More than one result matches the query ${messageText}`);
 
     return;
   }
 
-  displayHiddenCardAlert(`Displaying reference card for ${response[0].name} (type: ${type})`);
+  const referenceData = exactMatch ?? response[0];
+
+  displayHiddenCardAlert(`Displaying reference card for ${referenceData.name} (type: ${type})`);
 
   const content = await renderTemplate(template, {
-    ...formatData(response[0]),
+    ...formatData(referenceData),
   });
 
   await ChatMessage.create({
@@ -52,6 +56,7 @@ Hooks.once('init', async () => {
   await loadTemplates([
     'modules/stream-mode/templates/bio.html',
     'modules/stream-mode/templates/reference.html',
+    'modules/stream-mode/templates/macroCard.html',
     'modules/stream-mode/templates/pokemon.html',
     'modules/stream-mode/templates/status.html',
   ]);
@@ -109,6 +114,28 @@ Hooks.once('init', async () => {
       }
     },
   });
+
+  game.streamMode = {
+    async showCard(header, data, description) {
+      displayHiddenCardAlert(`Displaying card (${header})`);
+
+      const content = await renderTemplate('/modules/stream-mode/templates/macroCard.html', {
+        header,
+        data,
+        description,
+        type: data?.type ?? '',
+      });
+    
+      await ChatMessage.create({
+        content,
+        flags: {
+          'streamMode.classNames': ['stream-card', 'macro-card', 'hide-header', 'contains-header', 'no-background'],
+        },
+        speaker: ChatMessage.getSpeaker(),
+        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+      });
+    }
+  };
 });
 
 Hooks.once('ready', function() {
@@ -258,7 +285,7 @@ Hooks.on('chatCommandsReady', chatCommands => {
     
       const currentHealth = response.pokemon.currentHealth;
       const totalHealth = calculateMaxHP(response.pokemon);
-      const level = calculateLevel(response.pokemon);
+      const level = calculateLevel(response.pokemon.experience);
 
       const content = await renderTemplate('/modules/stream-mode/templates/pokemon.html', {
         ...response.pokemon,
@@ -314,7 +341,7 @@ Hooks.on('chatCommandsReady', chatCommands => {
     
       const currentHealth = response.pokemon.currentHealth;
       const totalHealth = calculateMaxHP(response.pokemon);
-      const level = calculateLevel(response.pokemon);
+      const level = calculateLevel(response.pokemon.experience);
       const experienceToNextLevel = calculatePercentageToNextLevel(response.pokemon.experience);
 
       const combatStageData = [
