@@ -1,0 +1,8 @@
+{
+  "stream-mode": {
+    "ACTOR": {
+      "ShowPokemonCard": "Show Pokemon Card",
+      "ShowPokemonStatusCard": "Show Status Card"
+    }
+  }
+}
