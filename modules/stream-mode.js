@@ -79,7 +79,13 @@ Hooks.once('init', async () => {
 
       const content = await renderTemplate('/modules/stream-mode/templates/macroCard.html', {
         header,
-        data,
+        data: Object.entries(data).reduce((acc, [key, value]) => {
+          if (typeof value === 'number' || value) {
+            return { ...acc, [key]: value };
+          }
+    
+          return acc;
+        }, {}),
         description,
         type: data?.type ?? '',
       });
